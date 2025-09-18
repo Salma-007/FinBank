@@ -1,4 +1,8 @@
 import java.util.Date;
+import java.io.File;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 public class Transaction {
     private int idTransaction;
@@ -31,5 +35,8 @@ public class Transaction {
         this.compteDestination = compteDestination;
     }
 
-
+    @Override
+    public String toString(){
+        return ("id :"+this.getIdTransaction()+" le type est: "+this.type+" le montant est: "+this.getMontant()+" la date est: "+this.getDate()+" le compte source est: "+this.getCompteSource()+" compte destination est: "+this.getCompteDestination());
+    }
 }
