@@ -9,10 +9,10 @@ public class Client extends Personne{
         return idCLient;
     }
 
-    Client(int idClient, String nom, String prenom, String mdp) {
-        super(nom, prenom, mdp);
+    Client(String nom, String prenom, String email ,String mdp) {
+        super(nom, prenom, email ,mdp);
         compteur++;
-        idClient = compteur;
+        this.idCLient = compteur;
         comptes = new HashMap<>();
     }
 
@@ -25,6 +25,8 @@ public class Client extends Personne{
             Transaction t = new Transaction(TypeTransaction.virement, montant, destination, source);
             destination.deposer(montant);
             source.retirer(montant);
+            // ecrire la transaction dans le fichier
+            Compte.writeInFile(t);
         }else{
             System.out.println("operation invalide!");
         }

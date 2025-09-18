@@ -1,0 +1,5 @@
+id :1 le type est: depot le montant est: 2000.0 la date est: Thu Sep 18 20:58:53 WEST 2025 le compte source est: Compte@30dae81 compte destination est: Compte@30dae81
+id :2 le type est: retrait le montant est: 500.0 la date est: Thu Sep 18 20:58:53 WEST 2025 le compte source est: Compte@30dae81 compte destination est: Compte@30dae81
+id :4 le type est: depot le montant est: 200.0 la date est: Thu Sep 18 20:58:53 WEST 2025 le compte source est: Compte@2e0fa5d3 compte destination est: Compte@2e0fa5d3
+id :5 le type est: retrait le montant est: 200.0 la date est: Thu Sep 18 20:58:53 WEST 2025 le compte source est: Compte@30dae81 compte destination est: Compte@30dae81
+id :3 le type est: virement le montant est: 200.0 la date est: Thu Sep 18 20:58:53 WEST 2025 le compte source est: Compte@2e0fa5d3 compte destination est: Compte@30dae81

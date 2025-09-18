@@ -1,8 +1,4 @@
 import java.util.Date;
-import java.io.File;
-import java.io.IOException;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 
 public class Transaction {
     private int idTransaction;

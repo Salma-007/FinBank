@@ -1,14 +1,15 @@
 
-public class Personne {
+public abstract class Personne {
     String prenom;
     String email;
     String nom;
     String mdp;
 
-    Personne(String nom, String prenom, String mdp){
+    Personne(String nom,String prenom, String email ,String mdp){
         this.nom = nom;
         this.prenom = prenom;
         this.mdp = mdp;
+        this.email = email;
     }
 
     public void setNom(String nom) {
