@@ -1,5 +1,6 @@
 
 public abstract class Personne {
+
     String prenom;
     String email;
     String nom;
@@ -10,6 +11,14 @@ public abstract class Personne {
         this.prenom = prenom;
         this.mdp = mdp;
         this.email = email;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getNom() {

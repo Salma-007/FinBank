@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
+    // creation hashmap pour stocker les clients
     public static HashMap<Integer, Client> allClients = new HashMap<>();;
     static Client client1 = new Client("Allali", "Salma", "salma@gmail.com", "1234");
     static Client client2 = new Client("Allami", "Houda", "houda@gmail.com", "12346");
@@ -69,19 +70,19 @@ public class Main {
                     case 1:
                         System.out.println("Votre solde total est: " + client.consulterSolde() + " DH");
                         break;
+
                     case 2:
                         System.out.println("--- DÉPÔT ---");
                         client.afficherMesComptes();
                         System.out.print("Numéro de compte: ");
                         int compteDepot = scanner.nextInt();
-                        System.out.print("Montant: ");
-                        float montantDepot = scanner.nextFloat();
-                        scanner.nextLine();
 
                         Compte compteD = client.getCompte(compteDepot);
                         if (compteD != null) {
+                            System.out.print("Montant: ");
+                            float montantDepot = scanner.nextFloat();
+                            scanner.nextLine();
                             compteD.deposer(montantDepot);
-                            System.out.println("Dépôt réussi !");
                         } else {
                             System.out.println("Compte introuvable");
                         }
@@ -91,20 +92,21 @@ public class Main {
                         client.afficherMesComptes();
                         System.out.print("Numéro de compte: ");
                         int compteRetrait = scanner.nextInt();
-                        System.out.print("Montant: ");
-                        float montantRetrait = scanner.nextFloat();
-                        scanner.nextLine();
 
                         Compte compteDes = client.getCompte(compteRetrait);
                         if (compteDes != null) {
+                            System.out.print("Montant: ");
+                            float montantRetrait = scanner.nextFloat();
+                            scanner.nextLine();
                             compteDes.retirer(montantRetrait);
-                            System.out.println("Retrait réussi !");
                         } else {
                             System.out.println("Compte introuvable");
                         }
                         break;
+
                     case 4:
                         System.out.println("--- VIREMENT ---");
+                        // afficher les comptes du client pour choisir
                         client.afficherMesComptes();
                         System.out.print("Compte source: ");
                         int source = scanner.nextInt();
@@ -119,11 +121,11 @@ public class Main {
 
                         if (compteSource != null && compteDest != null) {
                             client.virement(montantVirement, compteDest, compteSource);
-                            System.out.println("Virement réussi !");
                         } else {
-                            System.out.println("Compte(s) introuvable(s)");
+                            System.out.println("Compte introuvable");
                         }
                         break;
+
                     case 5:
                         System.out.println("--- HISTORIQUE ---");
                         client.afficherMesComptes();
@@ -138,13 +140,16 @@ public class Main {
                             System.out.println("Compte introuvable");
                         }
                         break;
+
                     case 6:
                         client.afficherMesComptes();
                         break;
+
                     case 7:
                         deconnecter = true;
                         System.out.println("Déconnexion réussie.");
                         break;
+
                     default:
                         System.out.println("Option invalide!");
                 }
@@ -159,9 +164,10 @@ public class Main {
             System.out.println("\nQue voulez-vous faire ?");
             System.out.println("1. Voir historique général");
             System.out.println("2. Créer un client");
-            System.out.println("3. Clôturer un compte");
-            System.out.println("4. Modifier un client");
-            System.out.println("5. Déconnexion");
+            System.out.println("3. Ajouter un compte pour un client");
+            System.out.println("4. Clôturer un compte");
+            System.out.println("5. Modifier les informations d'un client");
+            System.out.println("6. Déconnexion");
             System.out.print("Votre choix: ");
 
             int choix = scanner.nextInt();
@@ -175,18 +181,14 @@ public class Main {
 
                 case 2:
                       System.out.println("--- CREER COMPTE ---");
-                      System.out.println("tapez le nom du client");
+                      System.out.println("tapez le nom du client: ");
                       String nom = scanner.nextLine();
-                      scanner.nextLine();
-                      System.out.println("tapez le prenom du client");
+                      System.out.println("tapez le prenom du client: ");
                       String prenom = scanner.nextLine();
-                      scanner.nextLine();
-                      System.out.println("tapez le email du client");
+                      System.out.println("tapez le email du client: ");
                       String email = scanner.nextLine();
-                      scanner.nextLine();
-                      System.out.println("tapez le mdp du client");
+                      System.out.println("tapez le mdp du client: ");
                       String mdp = scanner.nextLine();
-                      scanner.nextLine();
                       // creation d'un nouveau client
                       Client nv_client =  new Client(nom, prenom, email, mdp);
                       // stocker le client dans hashmap des clients
@@ -194,10 +196,25 @@ public class Main {
                       // affecte le nouveau client un compte courant par default
                       Compte compte_initial = new Compte(TypeCompte.courant);
                       nv_client.addAccount(compte_initial);
-                      System.out.println("account created succefully!");
                 break;
 
                 case 3:
+                    System.out.println("--- Ajout DE COMPTE ---");
+                    System.out.println("--- Les clients Disponibles: ---");
+                    displayClients();
+                    System.out.println("tapez l'id du client: ");
+                    int clientChoisit = scanner.nextInt();
+                    scanner.nextLine();
+                    if(!allClients.containsKey(clientChoisit)){
+                        System.out.println("client introuvable!");
+                    }
+                    else{
+                        Compte compteCree = new Compte(TypeCompte.eparne);
+                        allClients.get(clientChoisit).addAccount(compteCree);
+                    }
+                break;
+
+                case 4:
                     System.out.println("--- CLÔTURE DE COMPTE ---");
                     System.out.print("tapez Id du client: ");
                     int idClient = scanner.nextInt();
@@ -208,7 +225,7 @@ public class Main {
                     else{
                         System.out.print("Numéro du compte à clôturer: ");
                         int numCompte = scanner.nextInt();
-                        scanner.nextLine();
+                        scanner.nextInt();
                         if(clientt.getCompte(numCompte) == null){
                             System.out.println("account introuvable!");
                         }
@@ -218,10 +235,10 @@ public class Main {
                         }
                     }
                     break;
-                case 4:
+                case 5:
                     System.out.print("tapez Id du client: ");
                     int idClient1 = scanner.nextInt();
-                    Client clientt1 =allClients.get(idClient1);
+                    Client clientt1 = allClients.get(idClient1);
                     if(clientt1 == null){
                         System.out.println("le client est introuvable!");
                     }
@@ -237,21 +254,19 @@ public class Main {
                             scanner.nextLine();
                             switch (choixClient){
                                 case 1:
-                                    System.out.println(allClients.get(1).getNom());
                                     System.out.println(" tapez le nouveau nom");
                                     String nvNom = scanner.nextLine();
                                     clientt1.setNom(nvNom);
-                                    System.out.println(allClients.get(1).getNom());
                                 break;
                                 case 2:
                                     System.out.println(" tapez le nouveau prenom");
                                     String nvPrenom = scanner.nextLine();
-                                    clientt1.setNom(nvPrenom);
+                                    clientt1.setPrenom(nvPrenom);
                                 break;
                                 case 3:
                                     System.out.println(" tapez le nouveau email");
                                     String nvEmail = scanner.nextLine();
-                                    clientt1.setNom(nvEmail);
+                                    clientt1.setEmail(nvEmail);
                                 break;
                                 case 4:
                                     quitter = true;
@@ -264,7 +279,7 @@ public class Main {
                     }
                 break;
 
-                case 5:
+                case 6:
                     deconnecter = true;
                     System.out.println("Déconnexion réussie");
                     break;
@@ -272,6 +287,12 @@ public class Main {
                 default:
                     System.out.println("Choix invalide");
             }
+        }
+    }
+
+    private static void displayClients(){
+        for(Client i : allClients.values()){
+            System.out.println("Id: "+i.getIdCLient()+" nom: "+i.getNom()+" prenom: "+i.getPrenom());
         }
     }
 

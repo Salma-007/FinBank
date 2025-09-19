@@ -16,6 +16,7 @@ public class Client extends Personne{
         comptes = new HashMap<>();
     }
 
+    // la somme des soldes de tous les comptes
     public float consulterSolde() {
         float total = 0;
         for (Compte c : comptes.values()) {
@@ -42,15 +43,17 @@ public class Client extends Personne{
 
     public void addAccount(Compte c){
         comptes.put(c.getNumeroCompte(), c);
+        System.out.println("compte crée avec succes!");
     }
 
     public void virement(float montant, Compte destination, Compte source){
-        if(montant > 0){
+        if(montant >= 0 || !comptes.containsValue(destination) ||!comptes.containsValue(source)){
             Transaction t = new Transaction(TypeTransaction.virement, montant, destination, source);
             destination.deposer(montant);
             source.retirer(montant);
             // ecrire la transaction dans le fichier
             Compte.writeInFile(t);
+            System.out.println("Virement réussi !");
         }else{
             System.out.println("operation invalide!");
         }

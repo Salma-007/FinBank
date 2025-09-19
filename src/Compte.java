@@ -30,7 +30,7 @@ public class Compte {
     }
 
     public void deposer(float montant){
-        if(montant < 0){
+        if(montant <= 0){
             System.out.println("erreur le montant est invalide!");
         }else{
             Transaction t = new Transaction(TypeTransaction.depot, montant, this, this);
@@ -38,11 +38,12 @@ public class Compte {
             this.solde += montant;
             // ecrire la transaction dans le fichier
             Compte.writeInFile(t);
+            System.out.println("Dépôt réussi !");
         }
     }
 
     public void retirer(float montant){
-        if(montant < 0 || montant > this.solde){
+        if(montant <= 0 || montant > this.solde){
             System.out.println("erreur le montant est invalide!");
         }else{
             Transaction t = new Transaction(TypeTransaction.retrait, montant, this, this);
@@ -50,6 +51,7 @@ public class Compte {
             this.solde -= montant;
             // ecrire la transaction dans le fichier
             Compte.writeInFile(t);
+            System.out.println("Retrait réussi !");
         }
     }
 
