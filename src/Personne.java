@@ -5,11 +5,15 @@ public abstract class Personne {
     String nom;
     String mdp;
 
-    Personne(String nom,String prenom, String email ,String mdp){
+    Personne(String nom, String prenom, String email , String mdp){
         this.nom = nom;
         this.prenom = prenom;
         this.mdp = mdp;
         this.email = email;
+    }
+
+    public String getNom() {
+        return nom;
     }
 
     public void setNom(String nom) {

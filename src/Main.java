@@ -226,24 +226,27 @@ public class Main {
                         System.out.println("le client est introuvable!");
                     }
                     else{
-                        System.out.println("entrez ce que vous voulez modifier: ");
-                        System.out.println("1 - nom ");
-                        System.out.println("2 - prenom ");
-                        System.out.println("3 - email ");
-                        System.out.println("4 - quitter ");
                         boolean quitter = false;
-                        int choixClient = scanner.nextInt();
                         while (!quitter){
+                            System.out.println("entrez ce que vous voulez modifier: ");
+                            System.out.println("1 - nom ");
+                            System.out.println("2 - prenom ");
+                            System.out.println("3 - email ");
+                            System.out.println("4 - quitter ");
+                            int choixClient = scanner.nextInt();
+                            scanner.nextLine();
                             switch (choixClient){
                                 case 1:
+                                    System.out.println(allClients.get(1).getNom());
                                     System.out.println(" tapez le nouveau nom");
                                     String nvNom = scanner.nextLine();
                                     clientt1.setNom(nvNom);
+                                    System.out.println(allClients.get(1).getNom());
                                 break;
                                 case 2:
                                     System.out.println(" tapez le nouveau prenom");
-                                    String nvPreom = scanner.nextLine();
-                                    clientt1.setNom(nvPreom);
+                                    String nvPrenom = scanner.nextLine();
+                                    clientt1.setNom(nvPrenom);
                                 break;
                                 case 3:
                                     System.out.println(" tapez le nouveau email");
