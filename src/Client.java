@@ -16,6 +16,30 @@ public class Client extends Personne{
         comptes = new HashMap<>();
     }
 
+    public float consulterSolde() {
+        float total = 0;
+        for (Compte c : comptes.values()) {
+            total += c.getSolde();
+        }
+        return total;
+    }
+
+    public void afficherMesComptes() {
+        System.out.println("--- MES COMPTES ---");
+        for (Compte compte : comptes.values()) {
+            System.out.println("Compte " + compte.getNumeroCompte() +
+                    " - Solde: " + compte.getSolde() + " DH");
+        }
+    }
+
+    public Compte getCompte(int numeroCompte) {
+        return comptes.get(numeroCompte);
+    }
+
+    public HashMap<Integer, Compte> getComptes() {
+        return comptes;
+    }
+
     public void addAccount(Compte c){
         comptes.put(c.getNumeroCompte(), c);
     }
@@ -41,4 +65,5 @@ public class Client extends Personne{
             System.out.println("compte avec id: "+compteId+" est introuvable!");
         }
     }
+
 }
