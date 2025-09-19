@@ -1,13 +1,17 @@
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
-
+    public static HashMap<Integer, Client> allClients = new HashMap<>();;
     static Client client1 = new Client("Allali", "Salma", "salma@gmail.com", "1234");
+    static Client client2 = new Client("Allami", "Houda", "houda@gmail.com", "12346");
     static Gestionnaire gestionnaire1 = new Gestionnaire("Allaoui", "Taha", "taha@gmail.com", "12345");
 
     public static void main(String[] args) {
+        allClients.put(client1.getIdCLient(), client1);
+        allClients.put(client2.getIdCLient(), client2);
         Compte cmp = new Compte(TypeCompte.courant);
         Compte cmp2 = new Compte(TypeCompte.eparne);
         cmp.setSolde(4000);
@@ -94,7 +98,7 @@ public class Main {
                         Compte compteDes = client.getCompte(compteRetrait);
                         if (compteDes != null) {
                             compteDes.retirer(montantRetrait);
-                            System.out.println("Dépôt réussi !");
+                            System.out.println("Retrait réussi !");
                         } else {
                             System.out.println("Compte introuvable");
                         }
@@ -156,7 +160,8 @@ public class Main {
             System.out.println("1. Voir historique général");
             System.out.println("2. Créer un client");
             System.out.println("3. Clôturer un compte");
-            System.out.println("4. Déconnexion");
+            System.out.println("4. Modifier un client");
+            System.out.println("5. Déconnexion");
             System.out.print("Votre choix: ");
 
             int choix = scanner.nextInt();
@@ -168,7 +173,7 @@ public class Main {
                     gestionnaire1.historiqueAllTransaction();
                     break;
 
-                  case 2:
+                case 2:
                       System.out.println("--- CREER COMPTE ---");
                       System.out.println("tapez le nom du client");
                       String nom = scanner.nextLine();
@@ -182,28 +187,81 @@ public class Main {
                       System.out.println("tapez le mdp du client");
                       String mdp = scanner.nextLine();
                       scanner.nextLine();
+                      // creation d'un nouveau client
                       Client nv_client =  new Client(nom, prenom, email, mdp);
+                      // stocker le client dans hashmap des clients
+                      allClients.put(nv_client.getIdCLient(), nv_client);
+                      // affecte le nouveau client un compte courant par default
                       Compte compte_initial = new Compte(TypeCompte.courant);
                       nv_client.addAccount(compte_initial);
                       System.out.println("account created succefully!");
+                break;
+
+                case 3:
+                    System.out.println("--- CLÔTURE DE COMPTE ---");
+                    System.out.print("tapez Id du client: ");
+                    int idClient = scanner.nextInt();
+                    Client clientt =allClients.get(idClient);
+                    if(clientt == null){
+                        System.out.println("le client est introuvable!");
+                    }
+                    else{
+                        System.out.print("Numéro du compte à clôturer: ");
+                        int numCompte = scanner.nextInt();
+                        scanner.nextLine();
+                        if(clientt.getCompte(numCompte) == null){
+                            System.out.println("account introuvable!");
+                        }
+                        else{
+                            clientt.cloturer(numCompte);
+                            System.out.println("le compte avec id: "+numCompte+"est cloturé!");
+                        }
+                    }
                     break;
-
-//                case 3:
-//                    System.out.println("--- CLÔTURE DE COMPTE ---");
-//                    System.out.print("Id du client: ");
-//                    int idClient = scanner.nextInt();
-//                    System.out.print("Numéro du compte à clôturer: ");
-//                    int numCompte = scanner.nextInt();
-//                    scanner.nextLine();
-//
-//                    if (client != null) {
-//                        client.cloturer(numCompte);
-//                    } else {
-//                        System.out.println("Client introuvable");
-//                    }
-//                    break;
-
                 case 4:
+                    System.out.print("tapez Id du client: ");
+                    int idClient1 = scanner.nextInt();
+                    Client clientt1 =allClients.get(idClient1);
+                    if(clientt1 == null){
+                        System.out.println("le client est introuvable!");
+                    }
+                    else{
+                        System.out.println("entrez ce que vous voulez modifier: ");
+                        System.out.println("1 - nom ");
+                        System.out.println("2 - prenom ");
+                        System.out.println("3 - email ");
+                        System.out.println("4 - quitter ");
+                        boolean quitter = false;
+                        int choixClient = scanner.nextInt();
+                        while (!quitter){
+                            switch (choixClient){
+                                case 1:
+                                    System.out.println(" tapez le nouveau nom");
+                                    String nvNom = scanner.nextLine();
+                                    clientt1.setNom(nvNom);
+                                break;
+                                case 2:
+                                    System.out.println(" tapez le nouveau prenom");
+                                    String nvPreom = scanner.nextLine();
+                                    clientt1.setNom(nvPreom);
+                                break;
+                                case 3:
+                                    System.out.println(" tapez le nouveau email");
+                                    String nvEmail = scanner.nextLine();
+                                    clientt1.setNom(nvEmail);
+                                break;
+                                case 4:
+                                    quitter = true;
+                                break;
+                                default:
+                                    System.out.println("choix invalide!");
+                                break;
+                            }
+                        }
+                    }
+                break;
+
+                case 5:
                     deconnecter = true;
                     System.out.println("Déconnexion réussie");
                     break;
